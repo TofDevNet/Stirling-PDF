@@ -19,6 +19,7 @@ import stirling.software.SPDF.model.exception.UnsupportedProviderException;
 @Lazy
 @Slf4j
 @Getter
+@Lazy
 @Configuration
 @ConditionalOnProperty(name = "premium.proFeatures.database", havingValue = "true")
 public class DatabaseConfig {
