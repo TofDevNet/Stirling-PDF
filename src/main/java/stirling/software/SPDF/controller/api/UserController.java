@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,15 +41,20 @@ import stirling.software.SPDF.model.User;
 import stirling.software.SPDF.model.api.user.UsernameAndPass;
 import stirling.software.SPDF.model.exception.UnsupportedProviderException;
 
-@Controller
-@Tag(name = "User", description = "User APIs")
-@RequestMapping("/api/v1/user")
 @Slf4j
+@Controller
+@RequestMapping("/api/v1/user")
+@Tag(name = "User", description = "User APIs")
 public class UserController {
 
     private static final String LOGIN_MESSAGETYPE_CREDSUPDATED = "/login?messageType=credsUpdated";
+
     @Lazy private final UserService userService;
-    @Lazy private final SessionPersistentRegistry sessionRegistry;
+
+    @Lazy
+    @Autowired(required = false)
+    private final SessionPersistentRegistry sessionRegistry;
+
     private final ApplicationProperties applicationProperties;
 
     public UserController(

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Lazy;
@@ -39,14 +40,21 @@ import stirling.software.SPDF.model.User;
 @ConditionalOnProperty(name = "premium.enabled", havingValue = "true")
 public class UserAuthenticationFilter extends OncePerRequestFilter {
 
-    private final ApplicationProperties applicationProperties;
-    @Lazy private final UserService userService;
-    @Lazy private final SessionPersistentRegistry sessionPersistentRegistry;
+    @Lazy private final ApplicationProperties applicationProperties;
+
+    @Lazy
+    @Autowired(required = false)
+    private final UserService userService;
+
+    @Lazy
+    @Autowired(required = false)
+    private final SessionPersistentRegistry sessionPersistentRegistry;
+
     private final boolean loginEnabledValue;
 
     public UserAuthenticationFilter(
-            @Lazy ApplicationProperties applicationProperties,
-            @Lazy UserService userService,
+            ApplicationProperties applicationProperties,
+            UserService userService,
             SessionPersistentRegistry sessionPersistentRegistry,
             @Qualifier("loginEnabled") boolean loginEnabledValue) {
         this.applicationProperties = applicationProperties;

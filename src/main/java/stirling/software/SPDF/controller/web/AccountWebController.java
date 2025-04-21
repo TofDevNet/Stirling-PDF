@@ -11,7 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,15 +47,19 @@ import stirling.software.SPDF.model.provider.GoogleProvider;
 import stirling.software.SPDF.model.provider.KeycloakProvider;
 import stirling.software.SPDF.repository.UserRepository;
 
-@Controller
 @Slf4j
+@Controller
 @Tag(name = "Account Security", description = "Account Security APIs")
 public class AccountWebController {
 
     public static final String OAUTH_2_AUTHORIZATION = "/oauth2/authorization/";
 
     private final ApplicationProperties applicationProperties;
+
+    @Lazy
+    @Autowired(required = false)
     private final SessionPersistentRegistry sessionPersistentRegistry;
+
     // Assuming you have a repository for user operations
     private final UserRepository userRepository;
     private final boolean runningEE;
