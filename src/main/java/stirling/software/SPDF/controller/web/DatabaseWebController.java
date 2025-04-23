@@ -2,6 +2,8 @@ package stirling.software.SPDF.controller.web;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -21,7 +23,8 @@ public class DatabaseWebController {
 
     private final DatabaseService databaseService;
 
-    public DatabaseWebController(DatabaseService databaseService) {
+    public DatabaseWebController(
+            @Lazy @Autowired(required = false) DatabaseService databaseService) {
         this.databaseService = databaseService;
     }
 

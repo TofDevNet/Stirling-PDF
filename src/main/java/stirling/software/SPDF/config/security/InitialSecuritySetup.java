@@ -26,24 +26,25 @@ import stirling.software.SPDF.model.exception.UnsupportedProviderException;
     add @Profile for enterprise/pro or higher
 */
 // @Profile({"pro", "enterprise"})
+@ConditionalOnProperty(name = "premium.enabled", havingValue = "true")
 public class InitialSecuritySetup {
 
-    @Lazy private final UserService userService;
+    private final UserService userService;
 
     private final ApplicationProperties applicationProperties;
 
-    @Lazy private final DatabaseInterface databaseService;
+    private final DatabaseInterface databaseService;
 
     public InitialSecuritySetup(
-            UserService userService,
+            @Lazy UserService userService,
             ApplicationProperties applicationProperties,
-            DatabaseInterface databaseService) {
+            @Lazy DatabaseInterface databaseService) {
         this.userService = userService;
         this.applicationProperties = applicationProperties;
         this.databaseService = databaseService;
     }
 
-    //    @PostConstruct
+    //    @PostConstruct todo: add back
     public void init() {
         try {
             initialiseDB();

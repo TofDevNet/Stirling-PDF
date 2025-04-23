@@ -42,20 +42,16 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
     @Lazy private final ApplicationProperties applicationProperties;
 
-    @Lazy
-    @Autowired(required = false)
     private final UserService userService;
 
-    @Lazy
-    @Autowired(required = false)
     private final SessionPersistentRegistry sessionPersistentRegistry;
 
     private final boolean loginEnabledValue;
 
     public UserAuthenticationFilter(
             ApplicationProperties applicationProperties,
-            UserService userService,
-            SessionPersistentRegistry sessionPersistentRegistry,
+            @Lazy @Autowired(required = false) UserService userService,
+            @Lazy @Autowired(required = false) SessionPersistentRegistry sessionPersistentRegistry,
             @Qualifier("loginEnabled") boolean loginEnabledValue) {
         this.applicationProperties = applicationProperties;
         this.userService = userService;

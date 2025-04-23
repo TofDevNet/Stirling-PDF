@@ -49,17 +49,15 @@ public class UserController {
 
     private static final String LOGIN_MESSAGETYPE_CREDSUPDATED = "/login?messageType=credsUpdated";
 
-    @Lazy private final UserService userService;
+    private final UserService userService;
 
-    @Lazy
-    @Autowired(required = false)
     private final SessionPersistentRegistry sessionRegistry;
 
     private final ApplicationProperties applicationProperties;
 
     public UserController(
-            UserService userService,
-            SessionPersistentRegistry sessionRegistry,
+            @Lazy @Autowired(required = false) UserService userService,
+            @Lazy @Autowired(required = false) SessionPersistentRegistry sessionRegistry,
             ApplicationProperties applicationProperties) {
         this.userService = userService;
         this.sessionRegistry = sessionRegistry;

@@ -3,6 +3,7 @@ package stirling.software.SPDF.config.security;
 import java.util.Collection;
 import java.util.Set;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import stirling.software.SPDF.model.User;
 import stirling.software.SPDF.repository.UserRepository;
 
 @Service
+@ConditionalOnProperty(name = "premium.enabled", havingValue = "true")
 public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;

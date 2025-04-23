@@ -3,6 +3,7 @@ package stirling.software.SPDF.config.security.session;
 import java.time.Duration;
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Lazy;
@@ -27,7 +28,8 @@ public class SessionPersistentRegistry implements SessionRegistry {
     @Value("${server.servlet.session.timeout:30m}")
     private Duration defaultMaxInactiveInterval;
 
-    public SessionPersistentRegistry(SessionRepository sessionRepository) {
+    public SessionPersistentRegistry(
+            @Lazy @Autowired(required = false) SessionRepository sessionRepository) {
         this.sessionRepository = sessionRepository;
     }
 

@@ -3,6 +3,7 @@ package stirling.software.SPDF.config;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -18,6 +19,7 @@ import jakarta.servlet.http.HttpSession;
 import stirling.software.SPDF.utils.RequestUriUtils;
 
 @Component
+@ConditionalOnProperty(name = "premium.enabled", havingValue = "true")
 public class MetricsFilter extends OncePerRequestFilter {
 
     private final MeterRegistry meterRegistry;

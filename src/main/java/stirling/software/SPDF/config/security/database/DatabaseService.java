@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.datasource.init.CannotReadScriptException;
 import org.springframework.jdbc.datasource.init.ScriptException;
@@ -46,7 +47,9 @@ public class DatabaseService implements DatabaseInterface {
     private final ApplicationProperties applicationProperties;
     @Lazy private final DataSource dataSource;
 
-    public DatabaseService(ApplicationProperties applicationProperties, DataSource dataSource) {
+    public DatabaseService(
+            ApplicationProperties applicationProperties,
+            @Lazy @Autowired(required = false) DataSource dataSource) {
         this.BACKUP_DIR =
                 Paths.get(InstallationPathConfig.getConfigPath(), "db", "backup").normalize();
         this.applicationProperties = applicationProperties;

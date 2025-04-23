@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -35,10 +36,9 @@ import stirling.software.SPDF.repository.UserRepository;
 @Lazy
 @Slf4j
 @Service
+@ConditionalOnProperty(name = "premium.enabled", havingValue = "true")
 public class UserService implements UserServiceInterface {
 
-    @Lazy
-    @Autowired(required = false)
     private final UserRepository userRepository;
 
     private final AuthorityRepository authorityRepository;
@@ -47,23 +47,19 @@ public class UserService implements UserServiceInterface {
 
     private final MessageSource messageSource;
 
-    @Lazy
-    @Autowired(required = false)
     private final SessionPersistentRegistry sessionRegistry;
 
-    @Lazy
-    @Autowired(required = false)
     private final DatabaseInterface databaseService;
 
     private final ApplicationProperties applicationProperties;
 
     public UserService(
             UserRepository userRepository,
-            AuthorityRepository authorityRepository,
+            @Autowired(required = false) AuthorityRepository authorityRepository,
             PasswordEncoder passwordEncoder,
             MessageSource messageSource,
-            SessionPersistentRegistry sessionRegistry,
-            DatabaseInterface databaseService,
+            @Lazy @Autowired(required = false) SessionPersistentRegistry sessionRegistry,
+            @Lazy @Autowired(required = false) DatabaseInterface databaseService,
             ApplicationProperties applicationProperties) {
         this.userRepository = userRepository;
         this.authorityRepository = authorityRepository;

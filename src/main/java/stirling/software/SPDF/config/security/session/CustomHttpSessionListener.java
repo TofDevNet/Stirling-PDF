@@ -15,12 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @ConditionalOnProperty(name = "premium.enabled", havingValue = "true")
 public class CustomHttpSessionListener implements HttpSessionListener {
 
-    @Lazy
-    @Autowired(required = false)
     private SessionPersistentRegistry sessionPersistentRegistry;
 
     @Autowired
-    public CustomHttpSessionListener(SessionPersistentRegistry sessionPersistentRegistry) {
+    public CustomHttpSessionListener(
+            @Lazy @Autowired(required = false)
+                    SessionPersistentRegistry sessionPersistentRegistry) {
         super();
         this.sessionPersistentRegistry = sessionPersistentRegistry;
     }

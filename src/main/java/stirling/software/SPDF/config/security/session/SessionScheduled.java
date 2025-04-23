@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
 @ConditionalOnProperty(name = "premium.enabled", havingValue = "true")
 public class SessionScheduled {
 
-    @Lazy
-    @Autowired(required = false)
     private final SessionPersistentRegistry sessionPersistentRegistry;
 
-    public SessionScheduled(SessionPersistentRegistry sessionPersistentRegistry) {
+    public SessionScheduled(
+            @Lazy @Autowired(required = false)
+                    SessionPersistentRegistry sessionPersistentRegistry) {
         this.sessionPersistentRegistry = sessionPersistentRegistry;
     }
 
